@@ -94,3 +94,11 @@ for param in params:
 plt.plot(params, test_scores)
 print(min(test_scores))
 plt.show()
+
+#模型ok后，生成数据, 发现xgboos的数据最好
+xgboost = XGBRegressor(5)
+xgboost.fit(X_train, y_train)
+y_xgboost = np.expm1(xgboost.predict(X_test))
+
+submission_df3 = pd.DataFrame(data={'Id':test_df.index, 'SalePrice':y_xgboost})
+submission_df3.to_csv('/Users/a1/Desktop/learning/house_price_5.15/submission3.csv', index=False)
